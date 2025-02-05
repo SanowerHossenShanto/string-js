@@ -1,0 +1,76 @@
+class Employee:
+    def __init__(self, name, employee_id, salary, department):
+        self.name = name
+        self.employee_id = employee_id
+        self.salary = salary
+        self.department = department
+
+    def display_employee_info(self):
+        print(f"Name: {self.name}")
+        print(f"Employee ID: {self.employee_id}")
+        print(f"Salary: ${self.salary}")
+        print(f"Department: {self.department}")
+        print("-" * 30)
+
+
+class Manager(Employee):
+    def __init__(self, name, employee_id, salary, department, team_size=0):
+        super().__init__(name, employee_id, salary, department)
+        self.team_size = team_size
+        self.team_members = []
+
+    def display_manager_info(self):
+        super().display_employee_info()
+        print(f"Team Size: {self.team_size}")
+        if self.team_members:
+            print(f"Team Members: {', '.join(self.team_members)}")
+        else:
+            print("Team Members: No team members yet")
+        print("-" * 30)
+
+    def add_team_member(self, name):
+        self.team_members.append(name)
+        self.team_size += 1
+        print(f"{name} has been added to your team.")
+
+    def remove_team_member(self, name):
+        if name in self.team_members:
+            self.team_members.remove(name)
+            self.team_size -= 1
+            print(f"{name} has been removed from your team.")
+        else:
+            print(f"{name} is not in the team.")
+
+    def update_salary(self, new_salary):
+        self.salary = new_salary
+        print(f"{self.name}'s salary has been updated to ${self.salary}.")
+
+
+# Testing the system
+# Creating an employee
+employee = Employee("Alice Johnson", "E123", 50000, "Finance")
+print("Employee information")
+employee.display_employee_info()
+
+# Creating a manager
+manager = Manager("Bob Smith", "M456", 80000, "Engineering")
+print("Manager information before adding team members")
+manager.display_manager_info()
+
+# Adding team members
+manager.add_team_member("Charlie Brown")
+manager.add_team_member("David Green")
+
+# Displaying manager details after adding team members
+print("\nManager information after adding team members")
+manager.display_manager_info()
+
+# Removing a team member
+manager.remove_team_member("Charlie Brown")
+
+# Updating manager's salary
+manager.update_salary(85000)
+
+# Displaying final manager details
+print("\nFinal Manager information")
+manager.display_manager_info()
